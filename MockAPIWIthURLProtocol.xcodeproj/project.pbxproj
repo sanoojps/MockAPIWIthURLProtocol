@@ -15,6 +15,7 @@
 		D8CDFD932332E16800B14B6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8CDFD912332E16800B14B6A /* LaunchScreen.storyboard */; };
 		D8CDFD9E2332E16800B14B6A /* MockAPIWIthURLProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDFD9D2332E16800B14B6A /* MockAPIWIthURLProtocolTests.swift */; };
 		D8CDFDA92332E16800B14B6A /* MockAPIWIthURLProtocolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDFDA82332E16800B14B6A /* MockAPIWIthURLProtocolUITests.swift */; };
+		D8CDFDB72332E1CB00B14B6A /* StubbedURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDFDB62332E1CB00B14B6A /* StubbedURLProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		D8CDFDA42332E16800B14B6A /* MockAPIWIthURLProtocolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MockAPIWIthURLProtocolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CDFDA82332E16800B14B6A /* MockAPIWIthURLProtocolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIWIthURLProtocolUITests.swift; sourceTree = "<group>"; };
 		D8CDFDAA2332E16800B14B6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8CDFDB62332E1CB00B14B6A /* StubbedURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbedURLProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				D8CDFD912332E16800B14B6A /* LaunchScreen.storyboard */,
 				D8CDFD942332E16800B14B6A /* Info.plist */,
 				D8CDFD8C2332E16600B14B6A /* MockAPIWIthURLProtocol.xcdatamodeld */,
+				D8CDFDB62332E1CB00B14B6A /* StubbedURLProtocol.swift */,
 			);
 			path = MockAPIWIthURLProtocol;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CDFD882332E16600B14B6A /* ViewController.swift in Sources */,
+				D8CDFDB72332E1CB00B14B6A /* StubbedURLProtocol.swift in Sources */,
 				D8CDFD862332E16600B14B6A /* AppDelegate.swift in Sources */,
 				D8CDFD8E2332E16600B14B6A /* MockAPIWIthURLProtocol.xcdatamodeld in Sources */,
 			);
