@@ -147,40 +147,32 @@ private extension StubbedURLProtocol
                 )
             }
             
-            let requestDataProvider =
-                StubbedURLProtocol.gofer.requestDataProvider
             // TODO:  Will be getting tagged to the same request
-            let requestResourcePaths =
-                Bundle.main.paths(
-                    forResourcesOfType: "json",
+            let requestResourcePath =
+                Bundle.main.path(
+                    forResource: "",
+                    ofType: "json",
                     inDirectory: "Requests"
+            ) ?? ""
+
+            self.gofer.registerResource(
+                at: requestResourcePath,
+                for: request,
+                with: DataProviderType.RequestProvider
             )
-            requestResourcePaths.forEach { (path) in
-                requestDataProvider?.registerResource(
-                    at: Bundle.main.path(
-                        forResource: "",
-                        ofType: ".json"
-                        ) ?? "",
-                    for: request
-                )
-            }
             
-            let responseDataProvider =
-                StubbedURLProtocol.gofer.responseDataProvider
-            let responseResourcePaths =
-                Bundle.main.paths(
-                    forResourcesOfType: "json",
-                    inDirectory: "Responses"
+            let responseResourcePath =
+                Bundle.main.path(
+                    forResource: "",
+                    ofType: "json",
+                    inDirectory: "Requests"
+            ) ?? ""
+            
+           self.gofer.registerResource(
+                at: responseResourcePath,
+                for: request,
+                with: DataProviderType.ResponseProvider
             )
-            responseResourcePaths.forEach { (path) in
-                responseDataProvider?.registerResource(
-                    at: Bundle.main.path(
-                        forResource: "",
-                        ofType: ".json"
-                        ) ?? "",
-                    for: request
-                )
-            }
         }
         
         prepareGofer(forRequest: request)
@@ -245,6 +237,26 @@ private final class URLProtocolGofer
     func fetchRequesteData(for url:URL)-> Data?
     {
         return self.requestDataProvider?.getContent(for: url)
+    }
+    
+    func registerResource(
+        at path: String,
+        for request: URLRequest,
+        with provider:DataProviderType
+    )
+    {
+        switch provider {
+        case .RequestProvider:
+            self.requestDataProvider?.registerResource(
+                at: path,
+                for: request
+            )
+        case .ResponseProvider:
+            self.responseDataProvider?.registerResource(
+                at: path,
+                for: request
+            )
+        }
     }
     
 }
