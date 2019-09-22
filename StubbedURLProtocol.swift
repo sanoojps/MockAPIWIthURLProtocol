@@ -46,11 +46,10 @@ protocol DataProvider {
 
 class StubbedURLProtocol: URLProtocol  {
     
-    fileprivate static var gofer: URLProtocolGofer?
+    fileprivate static var gofer: URLProtocolGofer = URLProtocolGofer()
     
     class func run() -> Bool
     {
-        self.gofer = URLProtocolGofer()
         return URLProtocol .registerClass(self)
     }
     
@@ -82,7 +81,7 @@ class StubbedURLProtocol: URLProtocol  {
     override func startLoading() {
         
         /// get data
-        guard let data = StubbedURLProtocol.gofer?.fetchResponseData(
+        guard let data = StubbedURLProtocol.gofer.fetchResponseData(
             for: self.request.url!
             ) else {
                 
@@ -132,23 +131,24 @@ private extension StubbedURLProtocol
     {
         func prepareGofer(forRequest request: URLRequest)
         {
-            if self.gofer?.shouldRegisterRequestDataProvider()
+            if (self.gofer.shouldRegisterRequestDataProvider())
             {
                 let requestDataProvider = RequestDataProvider()
-                StubbedURLProtocol.gofer?.registerRequestDataProvider(
+                StubbedURLProtocol.gofer.registerRequestDataProvider(
                     requestDataProvider
                 )
             }
             
-            if self.gofer?.shouldRegisterResponseDataProvider()
+            if (self.gofer.shouldRegisterResponseDataProvider())
             {
                 let responseDataProvider = ResponseDataProvider()
-                StubbedURLProtocol.gofer?.registerResponseDataProvider(
+                StubbedURLProtocol.gofer.registerResponseDataProvider(
                     responseDataProvider
                 )
             }
             
-            let requestDataProvider = StubbedURLProtocol.gofer?.requestDataProvider
+            let requestDataProvider =
+                StubbedURLProtocol.gofer.requestDataProvider
             // TODO:  Will be getting tagged to the same request
             let requestResourcePaths =
                 Bundle.main.paths(
@@ -156,7 +156,7 @@ private extension StubbedURLProtocol
                     inDirectory: "Requests"
             )
             requestResourcePaths.forEach { (path) in
-                requestDataProvider.registerResource(
+                requestDataProvider?.registerResource(
                     at: Bundle.main.path(
                         forResource: "",
                         ofType: ".json"
@@ -165,14 +165,15 @@ private extension StubbedURLProtocol
                 )
             }
             
-            let responseDataProvider = StubbedURLProtocol.gofer?.responseDataProvider
+            let responseDataProvider =
+                StubbedURLProtocol.gofer.responseDataProvider
             let responseResourcePaths =
                 Bundle.main.paths(
                     forResourcesOfType: "json",
                     inDirectory: "Responses"
             )
             responseResourcePaths.forEach { (path) in
-                responseDataProvider.registerResource(
+                responseDataProvider?.registerResource(
                     at: Bundle.main.path(
                         forResource: "",
                         ofType: ".json"
