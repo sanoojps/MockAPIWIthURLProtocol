@@ -40,7 +40,6 @@ protocol DataProvider {
     var resourceMap: [ URL : Data ] {get}
     func getContent(for resource: URL) -> Data
     func setContent(_ content: Data, for resource: URL)
-    func data(for url: URL) -> Data
     func contentSize(for url: URL) -> Int
     func registerResource(at path: String ,for request: URLRequest)
 }
@@ -54,7 +53,7 @@ class StubbedURLProtocol: URLProtocol  {
         self.gofer = URLProtocolGofer()
         return URLProtocol .registerClass(self)
     }
-
+    
     class func stop()
     {
         URLProtocol.unregisterClass(self)
@@ -86,19 +85,19 @@ class StubbedURLProtocol: URLProtocol  {
         guard let data = StubbedURLProtocol.gofer?.fetchResponseData(
             for: self.request.url!
             ) else {
-            
-            // for error
-            self.client?.urlProtocol(
-                self,
-                didFailWithError: NSError.init(
-                    domain: "com.mockurlprotocol.eroor.domian",
-                    code: 99999,
-                    userInfo: [:]
+                
+                // for error
+                self.client?.urlProtocol(
+                    self,
+                    didFailWithError: NSError.init(
+                        domain: "com.mockurlprotocol.eroor.domian",
+                        code: 99999,
+                        userInfo: [:]
+                    )
                 )
-            )
-            
-            return
-            
+                
+                return
+                
         }
         
         /// make success Response
@@ -134,16 +133,36 @@ private extension StubbedURLProtocol
         func prepareGofer(forRequest request: URLRequest)
         {
             let requestDataProvider = RequestDataProvider()
-            requestDataProvider.registerResource(
-                at: Bundle.main.path(forResource: "", ofType: ".json") ?? "",
-                for: request
+            let requestResourcePaths =
+                Bundle.main.paths(
+                    forResourcesOfType: "json",
+                    inDirectory: "Requests"
             )
+            requestResourcePaths.forEach { (path) in
+                requestDataProvider.registerResource(
+                    at: Bundle.main.path(
+                        forResource: "",
+                        ofType: ".json"
+                        ) ?? "",
+                    for: request
+                )
+            }
             
             let responseDataProvider = ResponseDataProvider()
-            responseDataProvider.registerResource(
-                at: Bundle.main.path(forResource: "", ofType: ".json") ?? "",
-                for: request
+            let responseResourcePaths =
+                Bundle.main.paths(
+                    forResourcesOfType: "json",
+                    inDirectory: "Responses"
             )
+            responseResourcePaths.forEach { (path) in
+                responseDataProvider.registerResource(
+                    at: Bundle.main.path(
+                        forResource: "",
+                        ofType: ".json"
+                        ) ?? "",
+                    for: request
+                )
+            }
             
             StubbedURLProtocol.gofer?.registerRequestDataProvider(
                 requestDataProvider
@@ -166,7 +185,7 @@ private extension StubbedURLProtocol
             httpVersion: "HTTP/1.1",
             headerFields:
             [:]
-            )
+        )
     }
     
     func makeErrorResponse() -> URLResponse?
@@ -217,10 +236,6 @@ extension DataProviderImplementation {
         return self.resourceMap[resource] ?? Data()
     }
     
-    func data(for url: URL) -> Data {
-        return self.resourceMap[url] ?? Data()
-    }
-    
     func contentSize(for url: URL) -> Int {
         return (self.resourceMap[url] ?? Data()).count
     }
@@ -229,8 +244,8 @@ extension DataProviderImplementation {
         
         guard let resourcePathURL: URL = URL(string: path),
             let requestURL = request.url,
-        let resourceContents = try? Data.init(contentsOf: resourcePathURL)
-        else { return }
+            let resourceContents = try? Data.init(contentsOf: resourcePathURL)
+            else { return }
         
         self.setContent(resourceContents, for: requestURL)
     }
@@ -245,7 +260,7 @@ final class RequestDataProvider: DataProvider
     {
         self.resourceMap[resource] = content
     }
-
+    
 }
 
 final class ResponseDataProvider: DataProvider

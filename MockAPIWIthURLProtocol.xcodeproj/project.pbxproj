@@ -78,10 +78,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D8C2E0F52336F1F500E4F606 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		D8C2E0F62336F20200E4F606 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
 		D8CDFD792332E16600B14B6A = {
 			isa = PBXGroup;
 			children = (
 				D8CDFD842332E16600B14B6A /* MockAPIWIthURLProtocol */,
+				D8CDFDB62332E1CB00B14B6A /* StubbedURLProtocol.swift */,
 				D8CDFD9C2332E16800B14B6A /* MockAPIWIthURLProtocolTests */,
 				D8CDFDA72332E16800B14B6A /* MockAPIWIthURLProtocolUITests */,
 				D8CDFD832332E16600B14B6A /* Products */,
@@ -108,7 +123,8 @@
 				D8CDFD912332E16800B14B6A /* LaunchScreen.storyboard */,
 				D8CDFD942332E16800B14B6A /* Info.plist */,
 				D8CDFD8C2332E16600B14B6A /* MockAPIWIthURLProtocol.xcdatamodeld */,
-				D8CDFDB62332E1CB00B14B6A /* StubbedURLProtocol.swift */,
+				D8C2E0F52336F1F500E4F606 /* Requests */,
+				D8C2E0F62336F20200E4F606 /* Responses */,
 			);
 			path = MockAPIWIthURLProtocol;
 			sourceTree = "<group>";
