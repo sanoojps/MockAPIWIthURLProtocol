@@ -132,7 +132,24 @@ private extension StubbedURLProtocol
     {
         func prepareGofer(forRequest request: URLRequest)
         {
-            let requestDataProvider = RequestDataProvider()
+            if self.gofer?.shouldRegisterRequestDataProvider()
+            {
+                let requestDataProvider = RequestDataProvider()
+                StubbedURLProtocol.gofer?.registerRequestDataProvider(
+                    requestDataProvider
+                )
+            }
+            
+            if self.gofer?.shouldRegisterResponseDataProvider()
+            {
+                let responseDataProvider = ResponseDataProvider()
+                StubbedURLProtocol.gofer?.registerResponseDataProvider(
+                    responseDataProvider
+                )
+            }
+            
+            let requestDataProvider = StubbedURLProtocol.gofer?.requestDataProvider
+            // TODO:  Will be getting tagged to the same request
             let requestResourcePaths =
                 Bundle.main.paths(
                     forResourcesOfType: "json",
@@ -148,7 +165,7 @@ private extension StubbedURLProtocol
                 )
             }
             
-            let responseDataProvider = ResponseDataProvider()
+            let responseDataProvider = StubbedURLProtocol.gofer?.responseDataProvider
             let responseResourcePaths =
                 Bundle.main.paths(
                     forResourcesOfType: "json",
@@ -163,13 +180,6 @@ private extension StubbedURLProtocol
                     for: request
                 )
             }
-            
-            StubbedURLProtocol.gofer?.registerRequestDataProvider(
-                requestDataProvider
-            )
-            StubbedURLProtocol.gofer?.registerResponseDataProvider(
-                responseDataProvider
-            )
         }
         
         prepareGofer(forRequest: request)
@@ -206,9 +216,19 @@ private final class URLProtocolGofer
     private(set) var requestDataProvider: DataProvider?
     private(set) var responseDataProvider: DataProvider?
     
+    func shouldRegisterRequestDataProvider() -> Bool
+    {
+        return self.requestDataProvider != nil ? true : false
+    }
+    
     func registerRequestDataProvider(_ requestDataProvider: DataProvider)
     {
         self.requestDataProvider = requestDataProvider
+    }
+    
+    func shouldRegisterResponseDataProvider() -> Bool
+    {
+        return self.responseDataProvider != nil ? true : false
     }
     
     func registerResponseDataProvider(_ responseDataProvider: DataProvider)
