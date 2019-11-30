@@ -48,12 +48,12 @@ class StubbedURLProtocol: URLProtocol  {
     
     fileprivate static var gofer: URLProtocolGofer = URLProtocolGofer()
     
-    class func run() -> Bool
+    class func begin() -> Bool
     {
         return URLProtocol .registerClass(self)
     }
     
-    class func stop()
+    class func end()
     {
         URLProtocol.unregisterClass(self)
     }
@@ -75,6 +75,10 @@ class StubbedURLProtocol: URLProtocol  {
     
     open override class func canonicalRequest(for request: URLRequest) -> URLRequest
     {
+        // can add Headers
+        // post data
+        guard let url = request.url else { return request }
+        let requestBody = self.gofer.fetchRequesteData(for: url)
         return request;
     }
     
@@ -115,8 +119,6 @@ class StubbedURLProtocol: URLProtocol  {
         /// send finish loading
         self.client?.urlProtocolDidFinishLoading(self);
         
-        
-        
     }
     
     override func stopLoading() {
@@ -124,7 +126,7 @@ class StubbedURLProtocol: URLProtocol  {
     }
 }
 
-/// More methods to configure the Protocol
+// MARK: - More methods to configure the Protocol
 private extension StubbedURLProtocol
 {
     class func shouldInit(with request: URLRequest) -> Bool
@@ -203,7 +205,7 @@ private extension StubbedURLProtocol
     }
 }
 
-
+// MARK: - Helper class to supply response and request
 private final class URLProtocolGofer
 {
     private(set) var requestDataProvider: DataProvider?
@@ -211,7 +213,7 @@ private final class URLProtocolGofer
     
     func shouldRegisterRequestDataProvider() -> Bool
     {
-        return self.requestDataProvider != nil ? true : false
+        return self.requestDataProvider == nil ? true : false
     }
     
     func registerRequestDataProvider(_ requestDataProvider: DataProvider)
@@ -221,7 +223,7 @@ private final class URLProtocolGofer
     
     func shouldRegisterResponseDataProvider() -> Bool
     {
-        return self.responseDataProvider != nil ? true : false
+        return self.responseDataProvider == nil ? true : false
     }
     
     func registerResponseDataProvider(_ responseDataProvider: DataProvider)
@@ -302,6 +304,6 @@ final class ResponseDataProvider: DataProvider
     
     func setContent(_ content: Data, for resource: URL)
     {
-        
+        self.resourceMap[resource] = content
     }
 }

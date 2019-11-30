@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8C2E0F82337ABAC00E4F606 /* ToDosResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D8C2E0F72337ABAC00E4F606 /* ToDosResponse.json */; };
+		D8C2E0FA2337ABCA00E4F606 /* ToDosRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = D8C2E0F92337ABCA00E4F606 /* ToDosRequest.json */; };
 		D8CDFD862332E16600B14B6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDFD852332E16600B14B6A /* AppDelegate.swift */; };
 		D8CDFD882332E16600B14B6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDFD872332E16600B14B6A /* ViewController.swift */; };
 		D8CDFD8B2332E16600B14B6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8CDFD892332E16600B14B6A /* Main.storyboard */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D8C2E0F72337ABAC00E4F606 /* ToDosResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ToDosResponse.json; sourceTree = "<group>"; };
+		D8C2E0F92337ABCA00E4F606 /* ToDosRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ToDosRequest.json; sourceTree = "<group>"; };
 		D8CDFD822332E16600B14B6A /* MockAPIWIthURLProtocol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MockAPIWIthURLProtocol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CDFD852332E16600B14B6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8CDFD872332E16600B14B6A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 		D8C2E0F52336F1F500E4F606 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				D8C2E0F92337ABCA00E4F606 /* ToDosRequest.json */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -88,6 +93,7 @@
 		D8C2E0F62336F20200E4F606 /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				D8C2E0F72337ABAC00E4F606 /* ToDosResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -251,8 +257,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8C2E0FA2337ABCA00E4F606 /* ToDosRequest.json in Resources */,
 				D8CDFD932332E16800B14B6A /* LaunchScreen.storyboard in Resources */,
 				D8CDFD902332E16800B14B6A /* Assets.xcassets in Resources */,
+				D8C2E0F82337ABAC00E4F606 /* ToDosResponse.json in Resources */,
 				D8CDFD8B2332E16600B14B6A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
